@@ -43,7 +43,7 @@ export async function POST() {
         });
 
         console.log("Audio Generating Completed ...");
-        return Response.json({message:"sucees",url:uploadResponse.url});
+        return Response.json({success:true,url:uploadResponse.url});
 
     } catch (error) {
         console.error("Audio Generation Failed ❌", error.message);
