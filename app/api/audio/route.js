@@ -3,14 +3,15 @@ import ImageKit from "imagekit";
 
 export async function POST() {
 
+    let succeededKey = null;
+
     // ✅ Fixed — process.env outside the string
     const ELEVEN_LABS_API_KEYS = [
         process.env.ELEVENLABS_APIKEY_1,
         process.env.ELEVENLABS_APIKEY_2,
         process.env.ELEVENLABS_APIKEY_3,
         process.env.ELEVENLABS_APIKEY_4,
-        process.env.ELEVENLABS_APIKEY_5,
-        process.env.ELEVENLABS_APIKEY_6,
+        process.env.ELEVENLABS_APIKEY_5
     ];
 
     const imageKit = new ImageKit({
@@ -52,9 +53,12 @@ export async function POST() {
                 audioBuffer = Buffer.concat(chunks);
 
                 console.log(`API key ${i + 1} succeeded ✅`);
+                succeededKey = i+1;
                 break; // ✅ Stop trying once one succeeds
 
             } catch (error) {
+                console.log(error);
+                
                 console.log(`API key ${i + 1} failed ❌ trying API key ${i + 2}...`);
 
                 // If all keys exhausted, throw error
@@ -73,7 +77,7 @@ export async function POST() {
         });
 
         console.log("Audio Generating Completed ...");
-        return Response.json({ success: true, url: uploadResponse.url });
+        return Response.json({ success: true, url: uploadResponse.url ,key:succeededKey });
 
     } catch (error) {
         console.error("Audio Generation Failed ❌", error.message);
