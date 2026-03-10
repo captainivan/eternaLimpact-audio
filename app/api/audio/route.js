@@ -11,7 +11,8 @@ export async function POST() {
         process.env.ELEVENLABS_APIKEY_2,
         process.env.ELEVENLABS_APIKEY_3,
         process.env.ELEVENLABS_APIKEY_4,
-        process.env.ELEVENLABS_APIKEY_5
+        process.env.ELEVENLABS_APIKEY_5,
+        process.env.ELEVENLABS_APIKEY_6,
     ];
 
     const imageKit = new ImageKit({
