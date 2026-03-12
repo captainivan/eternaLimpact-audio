@@ -13,6 +13,7 @@ export async function POST() {
         process.env.ELEVENLABS_APIKEY_4,
         process.env.ELEVENLABS_APIKEY_5,
         process.env.ELEVENLABS_APIKEY_6,
+        process.env.ELEVENLABS_APIKEY_7
     ];
 
     const imageKit = new ImageKit({
@@ -78,7 +79,7 @@ export async function POST() {
         });
 
         console.log("Audio Generating Completed ...");
-        return Response.json({ success: true, url: uploadResponse.url, key: succeededKey, totalKeys: ELEVEN_LABS_API_KEYS.length });
+        return Response.json({ success:true, url:uploadResponse.url, key:succeededKey, totalKeys:ELEVEN_LABS_API_KEYS.length });
 
     } catch (error) {
         console.error("Audio Generation Failed ❌", error.message);
