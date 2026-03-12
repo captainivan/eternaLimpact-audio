@@ -54,12 +54,12 @@ export async function POST() {
                 audioBuffer = Buffer.concat(chunks);
 
                 console.log(`API key ${i + 1} succeeded ✅`);
-                succeededKey = i+1;
+                succeededKey = i + 1;
                 break; // ✅ Stop trying once one succeeds
 
             } catch (error) {
                 console.log(error);
-                
+
                 console.log(`API key ${i + 1} failed ❌ trying API key ${i + 2}...`);
 
                 // If all keys exhausted, throw error
@@ -72,13 +72,13 @@ export async function POST() {
         const uploadResponse = await imageKit.upload({
             file: audioBuffer,
             fileName: "audio.mp3",
-            overwriteFile: true,        
+            overwriteFile: true,
             useUniqueFileName: false,
-            fileId:process.env.AUDIO_FILE_ID
+            fileId: process.env.AUDIO_FILE_ID
         });
 
         console.log("Audio Generating Completed ...");
-        return Response.json({ success: true, url: uploadResponse.url ,key:succeededKey });
+        return Response.json({ success: true, url: uploadResponse.url, key: succeededKey, totalKeys: ELEVEN_LABS_API_KEYS.length });
 
     } catch (error) {
         console.error("Audio Generation Failed ❌", error.message);
